@@ -26,3 +26,4 @@ export const AvatarEditorIcon: FC<AvatarEditorIconProps> = props => {
 
   return <Base classNames={getClassNames} {...rest} />;
 };
+

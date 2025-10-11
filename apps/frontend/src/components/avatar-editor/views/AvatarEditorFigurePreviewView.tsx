@@ -3,7 +3,6 @@ import {FC, useEffect, useState} from "react";
 
 import {FigureData} from "../../../api";
 import {Base, Column, LayoutAvatarImageView} from "../../../common";
-import {AvatarEditorIcon} from "./AvatarEditorIcon";
 
 export interface AvatarEditorFigurePreviewViewProps {
   figureData: FigureData;
@@ -38,12 +37,11 @@ export const AvatarEditorFigurePreviewView: FC<AvatarEditorFigurePreviewViewProp
   return (
     <Column className="figure-preview-container" overflow="hidden" position="relative">
       <LayoutAvatarImageView figure={figureData.getFigureString()} direction={figureData.direction} scale={2} />
-      <AvatarEditorIcon className="avatar-spotlight" icon="spotlight" />
       <Base className="avatar-shadow" />
       <Base className="arrow-container">
-        <AvatarEditorIcon pointer icon="arrow-left" onClick={event => rotateFigure(figureData.direction + 1)} />
-        <AvatarEditorIcon pointer icon="arrow-right" onClick={event => rotateFigure(figureData.direction - 1)} />
+        <i className="icon arrow-left" onClick={event => rotateFigure(figureData.direction + 1)} />
       </Base>
     </Column>
   );
 };
+

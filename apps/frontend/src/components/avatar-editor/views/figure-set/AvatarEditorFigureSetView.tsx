@@ -13,8 +13,8 @@ const SHOES_FOOTBALL_GATE = [3115, 3068, 906];
 export interface AvatarEditorFigureSetViewProps {
   model: IAvatarEditorCategoryModel;
   category: CategoryData;
-  isFromFootballGate: boolean;
   setMaxPaletteCount: Dispatch<SetStateAction<number>>;
+  isFromFootballGate?: boolean;
 }
 
 export const AvatarEditorFigureSetView: FC<AvatarEditorFigureSetViewProps> = props => {
@@ -45,7 +45,7 @@ export const AvatarEditorFigureSetView: FC<AvatarEditorFigureSetViewProps> = pro
   }, [model, category]);
 
   return (
-    <AutoGrid innerRef={elementRef} columnCount={3} columnMinHeight={50}>
+    <AutoGrid className="clothing-container" innerRef={elementRef} columnCount={3} columnMinHeight={50}>
       {category.parts.length > 0 &&
         category.parts.map(
           item =>
@@ -58,3 +58,4 @@ export const AvatarEditorFigureSetView: FC<AvatarEditorFigureSetViewProps> = pro
     </AutoGrid>
   );
 };
+

@@ -16,13 +16,14 @@ export const LoadingView: FC<LoadingViewProps> = props => {
       <Base fullHeight className="container h-100">
         <Column fullHeight alignItems="center" justifyContent="end">
           <Base className="connecting-duck" />
+          <Base className="logo" />
           <Column size={6} className="text-center py-4">
             {isError && message && message.length ? (
               <Base className="fs-4 text-shadow">{message}</Base>
             ) : (
               <>
                 <Text fontSize={4} variant="white" className="text-shadow">
-                  {percent.toFixed()}%
+                  The hotel is loading {percent.toFixed()}%...
                 </Text>
                 <LayoutProgressBar progress={percent} className="mt-2 large" />
               </>
