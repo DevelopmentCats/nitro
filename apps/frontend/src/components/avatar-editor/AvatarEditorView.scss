@@ -441,7 +441,7 @@
 
         .nav-tabs .nav-link {
             position: relative;
-            border-image-source: url(@/assets/images/boxes/card/tabs_avatareditor.png);
+            border-image-source: url(@/assets/images/avatareditor/tabs_avatareditor.png);
             border-image-slice: 7 7 7 7 fill;
             border-image-width: 7px 7px 7px 7px;
             border-image-outset: 0px 0px 0px 0px;
@@ -450,13 +450,13 @@
             margin-left: -2px;
 
             &:hover {
-                border-image-source: url(@/assets/images/boxes/card/tabs_active.png);
+                border-image-source: url(@/assets/images/avatareditor/tabs_active.png);
             }
         }
 
 
         .nav-tabs .nav-link.active {
-            border-image-source: url(@/assets/images/boxes/card/tabs_active.png);
+            border-image-source: url(@/assets/images/avatareditor/tabs_active.png);
         }
     }
 
