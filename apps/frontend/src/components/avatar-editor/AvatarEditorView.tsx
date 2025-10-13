@@ -1,7 +1,9 @@
 import {
   AvatarEditorFigureCategory,
+  AvatarEffectActivatedEvent,
+  AvatarEffectAddedEvent,
+  AvatarEffectExpiredEvent,
   AvatarEffectSelectedComposer,
-  AvatarEffectSelectedEvent,
   AvatarEffectsEvent,
   FigureSetIdsMessageEvent,
   GetWardrobeMessageComposer,
@@ -11,7 +13,7 @@ import {
   UserFigureComposer,
   UserWardrobePageEvent,
 } from "@nitro/renderer";
-import {FC, useCallback, useEffect, useMemo, useState} from "react";
+import {FC, useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {FaDice, FaTrash, FaUndo} from "react-icons/fa";
 
 import {
@@ -68,17 +70,50 @@ export const AvatarEditorView: FC<{}> = props => {
   const [isWardrobeVisible, setIsWardrobeVisible] = useState(false);
   const [lastFigure, setLastFigure] = useState<string>(null);
   const [lastGender, setLastGender] = useState<string>(null);
+  const [lastEffectId, setLastEffectId] = useState<number>(-1);
   const [needsReset, setNeedsReset] = useState(true);
   const [isInitalized, setIsInitalized] = useState(false);
   const [genderFootballGate, setGenderFootballGate] = useState<string>(null);
   const [objectFootballGate, setObjectFootballGate] = useState<number>(null);
-  const [currentEffectId, setCurrentEffectId] = useState<number>(-1);
+  const [availableEffects, setAvailableEffects] = useState<Map<number, {duration: number, secondsLeftIfActive: number, isPermanent: boolean}>>(new Map());
+  const [activeEffectId, setActiveEffectId] = useState<number>(0); // Currently active effect (actually running/counting down)
+  const [selectedEffectId, setSelectedEffectId] = useState<number>(0); // Selected in UI for preview/display
+  
+  // Use ref to avoid stale closure issues in callbacks
+  const updateEffectStateRef = useRef<typeof updateEffectState>();
 
   const DEFAULT_MALE_FOOTBALL_GATE =
     JSON.parse(window.localStorage.getItem("nitro.look.footballgate.M")) || "ch-3109-92-1408.lg-3116-82-1408.sh-3115-1408-1408";
   const DEFAULT_FEMALE_FOOTBALL_GATE =
     JSON.parse(window.localStorage.getItem("nitro.look.footballgate.F")) || "ch-3112-1408-1408.lg-3116-71-1408.sh-3115-1408-1408";
   const maxWardrobeSlots = useMemo(() => GetConfiguration<number>("avatar.wardrobe.max.slots", 10), []);
+
+  // Helper function to manage effect state transitions
+  const updateEffectState = useCallback((options: {
+    effectId?: number;
+    isActive?: boolean;
+    isSelected?: boolean;
+    clearFigure?: boolean;
+  }) => {
+    const { effectId = 0, isActive = false, isSelected = false, clearFigure = false } = options;
+    
+    if (isActive) setActiveEffectId(effectId);
+    if (isSelected) setSelectedEffectId(effectId);
+    
+    if (figureData) {
+      if (clearFigure || effectId === 0) {
+        figureData.avatarEffectType = 0;
+      } else if (isActive || isSelected) {
+        figureData.avatarEffectType = effectId;
+      }
+    }
+  }, [figureData]);
+  
+  // Keep ref updated for stable callbacks
+  updateEffectStateRef.current = updateEffectState;
+  
+  // Update ref whenever callback changes
+  updateEffectStateRef.current = updateEffectState;
 
   const onClose = () => {
     setGenderFootballGate(null);
@@ -116,46 +151,107 @@ export const AvatarEditorView: FC<{}> = props => {
 
   useMessageEvent<AvatarEffectsEvent>(AvatarEffectsEvent, event => {
     const effects = event.getParser().effects;
-    console.log("Received avatar effects:", effects);
 
     // Update EffectsModel with available effects
     if (effects && effects.length > 0) {
       const effectIds = effects.map((effect: any) => effect.type as number);
       EffectsModel.setAvailableEffects(effectIds);
 
-      // Reset categories to update the effects list
-      resetCategories();
+      // Store effect metadata for later lookup
+      const effectsMap = new Map<number, {duration: number, secondsLeftIfActive: number, isPermanent: boolean}>();
+      effects.forEach((effect: any) => {
+        effectsMap.set(effect.type, {
+          duration: effect.duration,
+          secondsLeftIfActive: effect.secondsLeftIfActive,
+          isPermanent: effect.isPermanent
+        });
+      });
+      setAvailableEffects(effectsMap);
 
-      console.log("Updated EffectsModel with effects:", effectIds);
+      // Check if there's an active effect and update its details
+      const activeEffect = effects.find((effect: any) => effect.secondsLeftIfActive > 0);
+      if (activeEffect) {
+        updateEffectState({ effectId: activeEffect.type, isActive: true, isSelected: true });
+        setLastEffectId(activeEffect.type); // Save as last effect for persistence
+      } else {
+        // No active effect
+        updateEffectState({ effectId: 0, clearFigure: true });
+      }
+
+      // Reset categories AFTER setting the active effect so it can be pre-selected
+      resetCategories();
     }
   });
 
-  useMessageEvent<AvatarEffectSelectedEvent>(AvatarEffectSelectedEvent, event => {
-    const type = event.getParser().type;
-
-    console.log("Avatar effect selected:", type);
-
-    // Update figureData with selected effect
-    if (figureData) {
-      figureData.avatarEffectType = type;
-      console.log("Updated figureData.avatarEffectType to:", type);
+  useMessageEvent<AvatarEffectAddedEvent>(AvatarEffectAddedEvent, event => {
+    const parser = event.getParser();
+    
+    // Add the new effect to our available effects map
+    setAvailableEffects(prevMap => {
+      const newMap = new Map(prevMap);
+      newMap.set(parser.type, {
+        duration: parser.duration,
+        secondsLeftIfActive: 0, // New effects start inactive
+        isPermanent: parser.isPermanent
+      });
+      return newMap;
+    });
+    
+    // Update EffectsModel with the new effect
+    const currentEffects = Array.from(availableEffects.keys());
+    if (!currentEffects.includes(parser.type)) {
+      EffectsModel.setAvailableEffects([...currentEffects, parser.type]);
     }
+    
+    // Refresh the effects list from server
+    resetCategories();
+  });
 
-    try {
-      if (!categories) return;
+  useMessageEvent<AvatarEffectActivatedEvent>(AvatarEffectActivatedEvent, event => {
+    const parser = event.getParser();
+    const effectId = parser.type;
+    
+    // Update the availableEffects map - preserve existing secondsLeftIfActive if it exists
+    setAvailableEffects(prevMap => {
+      const newMap = new Map(prevMap);
+      const existingEffect = prevMap.get(effectId);
+      
+      const finalSecondsLeft = existingEffect?.secondsLeftIfActive || parser.duration;
+      
+      newMap.set(effectId, {
+        duration: parser.duration,
+        secondsLeftIfActive: finalSecondsLeft,
+        isPermanent: parser.isPermanent
+      });
+      return newMap;
+    });
+    
+    // Set active effect
+    updateEffectState({ effectId, isActive: true, isSelected: true });
+  });
 
-      const effectsModel = categories.get(AvatarEditorFigureCategory.EFFECTS) as any;
-
-      if (!effectsModel) return;
-
-      const categoryData = effectsModel.getCategoryData("effects_icon");
-
-      if (!categoryData) return;
-
-      categoryData.selectPartId(type);
-    } catch (e) {
-      console.warn("Could not preselect avatar effect in model:", e);
+  useMessageEvent<AvatarEffectExpiredEvent>(AvatarEffectExpiredEvent, event => {
+    const parser = event.getParser();
+    const expiredEffectType = parser.type;
+    
+    // Remove the expired effect from availableEffects
+    setAvailableEffects(prevMap => {
+      const newMap = new Map(prevMap);
+      newMap.delete(expiredEffectType);
+      return newMap;
+    });
+    
+    // Update EffectsModel to remove expired effect
+    const currentEffects = Array.from(availableEffects.keys()).filter(id => id !== expiredEffectType);
+    EffectsModel.setAvailableEffects(currentEffects);
+    
+    // Clear any state related to the expired effect
+    if (activeEffectId === expiredEffectType || selectedEffectId === expiredEffectType) {
+      updateEffectState({ effectId: 0, clearFigure: true });
     }
+    
+    // Refresh categories to update UI
+    resetCategories();
   });
 
   const selectCategory = useCallback(
@@ -183,6 +279,32 @@ export const AvatarEditorView: FC<{}> = props => {
 
     setCategories(categories);
   }, [genderFootballGate]);
+
+  const getEffectTimeDisplay = useCallback(() => {
+    // Get the currently selected effect metadata
+    const selectedEffectMeta = availableEffects.get(selectedEffectId);
+    if (!selectedEffectMeta || selectedEffectId === 0) return "";
+    
+    if (selectedEffectMeta.isPermanent) {
+      return LocalizeText("avatareditor.effects.active.permanent");
+    }
+    
+    const seconds = selectedEffectMeta.secondsLeftIfActive;
+    
+    const days = Math.floor(seconds / 86400); // 86400 seconds in a day
+    
+    if (days > 0) {
+      return LocalizeText("avatareditor.effects.active.daysleft", ["days_left"], [days.toString()]);
+    }
+    
+    // Format as HH:MM:SS
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+    const timeStr = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    
+    return LocalizeText("avatareditor.effects.active.timeleft", ["time_left"], [timeStr]);
+  }, [selectedEffectId, availableEffects]);
 
   const setupFigures = useCallback(() => {
     const figures: Map<string, FigureData> = new Map();
@@ -215,6 +337,7 @@ export const AvatarEditorView: FC<{}> = props => {
       if (reset) {
         setLastFigure(figureData.getFigureString());
         setLastGender(figureData.gender);
+        setLastEffectId(figureData.avatarEffectType);
       }
     },
     [figures, figureData]
@@ -227,13 +350,12 @@ export const AvatarEditorView: FC<{}> = props => {
       switch (action) {
         case AvatarEditorAction.ACTION_CLEAR:
           loadAvatarInEditor(figureData.getFigureStringWithFace(0, false), figureData.gender, false);
-          if (figureData) {
-            figureData.avatarEffectType = 0;
-          }
+          updateEffectState({ effectId: 0, clearFigure: true });
           resetCategories();
           return;
         case AvatarEditorAction.ACTION_RESET:
           loadAvatarInEditor(lastFigure, lastGender);
+          updateEffectState({ effectId: lastEffectId, isSelected: true });
           resetCategories();
           return;
         case AvatarEditorAction.ACTION_RANDOMIZE:
@@ -318,13 +440,19 @@ export const AvatarEditorView: FC<{}> = props => {
 
     AvatarEditorUtilities.CURRENT_FIGURE = figureData;
 
-    // Initialize the current effect ID
-    setCurrentEffectId(figureData.avatarEffectType);
+    // Initialize the selected effect ID
+    setSelectedEffectId(figureData.avatarEffectType);
+    
+    // Set up effect selection callback
+    AvatarEditorUtilities.ON_EFFECT_SELECTED = (effectId: number) => {
+      updateEffectStateRef.current?.({ effectId, isSelected: true });
+    };
 
     resetCategories();
 
     return () => {
       AvatarEditorUtilities.CURRENT_FIGURE = null;
+      AvatarEditorUtilities.ON_EFFECT_SELECTED = null;
     };
   }, [figureData, resetCategories]);
 
@@ -351,6 +479,51 @@ export const AvatarEditorView: FC<{}> = props => {
       return;
     }
   }, [isVisible, figures, setupFigures]);
+
+  // Countdown timer for active effects - only counts down when effect is active
+  useEffect(() => {
+    if (activeEffectId === 0) return;
+
+    const activeEffectMeta = availableEffects.get(activeEffectId);
+    if (!activeEffectMeta || activeEffectMeta.isPermanent || activeEffectMeta.secondsLeftIfActive <= 0) {
+      return;
+    }
+
+    const interval = setInterval(() => {
+      setAvailableEffects(prevMap => {
+        const newMap = new Map(prevMap);
+        const effectMeta = newMap.get(activeEffectId);
+        
+        if (!effectMeta) return prevMap; // Effect no longer exists
+        
+        const newSecondsLeft = effectMeta.secondsLeftIfActive - 1;
+        
+        if (newSecondsLeft <= 0) {
+          // Effect expired naturally during countdown
+          newMap.set(activeEffectId, {
+            ...effectMeta,
+            secondsLeftIfActive: 0
+          });
+        } else {
+          // Update countdown
+          newMap.set(activeEffectId, {
+            ...effectMeta,
+            secondsLeftIfActive: newSecondsLeft
+          });
+        }
+        
+        return newMap;
+      });
+      
+      // Check if effect expired and clear it
+      const currentEffectMeta = availableEffects.get(activeEffectId);
+      if (currentEffectMeta && currentEffectMeta.secondsLeftIfActive <= 1) {
+        updateEffectState({ effectId: 0, clearFigure: true });
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [activeEffectId, updateEffectState]); // Removed availableEffects dependency to prevent unnecessary recreations
 
   useEffect(() => {
     if (!isVisible || !isInitalized || !needsReset) return;
@@ -420,13 +593,35 @@ export const AvatarEditorView: FC<{}> = props => {
                 <AvatarEditorFigurePreviewView 
                   figureData={figureData} 
                   activeCategory={activeCategory?.name}
-                  onFigureUpdate={() => setCurrentEffectId(figureData.avatarEffectType)}
+                  onFigureUpdate={() => {
+                    setSelectedEffectId(figureData.avatarEffectType);
+                  }}
                 />
-                {activeCategory?.name === AvatarEditorFigureCategory.EFFECTS && currentEffectId > 0 && (
-                  <Flex center className="w-100 py-2">
-                    <Text bold>{LocalizeText(`fx_${currentEffectId}`)}</Text>
-                  </Flex>
-                )}
+                {activeCategory?.name === AvatarEditorFigureCategory.EFFECTS && selectedEffectId > 0 && (() => {
+                  const selectedEffectMeta = availableEffects.get(selectedEffectId);
+                  return selectedEffectMeta && (
+                    <Column gap={1} className="w-100 px-3 py-2">
+                      <Flex center className="w-100">
+                        <Text bold>{LocalizeText(`fx_${selectedEffectId}`)}</Text>
+                      </Flex>
+                      <Flex center className="w-100">
+                        <Text fontSize={6}>{getEffectTimeDisplay()}</Text>
+                      </Flex>
+                      {!selectedEffectMeta.isPermanent && selectedEffectMeta.duration > 0 && (
+                        <div className="progress" style={{height: '8px'}}>
+                          <div 
+                            className="progress-bar bg-success" 
+                            role="progressbar" 
+                            style={{width: `${(selectedEffectMeta.secondsLeftIfActive / selectedEffectMeta.duration) * 100}%`}}
+                            aria-valuenow={selectedEffectMeta.secondsLeftIfActive} 
+                            aria-valuemin={0} 
+                            aria-valuemax={selectedEffectMeta.duration}
+                          />
+                        </div>
+                      )}
+                    </Column>
+                  );
+                })()}
                 <Column grow gap={1}>
                   {!genderFootballGate && (
                     <ButtonGroup className="action-buttons w-100">

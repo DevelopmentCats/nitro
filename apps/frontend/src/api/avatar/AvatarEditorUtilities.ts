@@ -13,6 +13,7 @@ export class AvatarEditorUtilities {
   public static CURRENT_FIGURE: FigureData = null;
   public static FIGURE_SET_IDS: number[] = [];
   public static BOUND_FURNITURE_NAMES: string[] = [];
+  public static ON_EFFECT_SELECTED: ((effectId: number) => void) | null = null;
 
   public static getGender(gender: string): string {
     switch (gender) {

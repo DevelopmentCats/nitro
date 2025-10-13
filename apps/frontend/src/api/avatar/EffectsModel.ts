@@ -75,9 +75,24 @@ export class EffectsModel extends CategoryBaseModel {
     
     this._categories.set("effects_icon", categoryData);
 
-    // Set the current selection to "None" by default
-    if (categoryData.parts.length > 0) {
+    // Pre-select the current effect if available
+    if (AvatarEditorUtilities.CURRENT_FIGURE && AvatarEditorUtilities.CURRENT_FIGURE.avatarEffectType > 0) {
+      this.selectEffectById(AvatarEditorUtilities.CURRENT_FIGURE.avatarEffectType);
+    } else if (categoryData.parts.length > 0) {
+      // Set the current selection to "None" by default
       categoryData.selectPartIndex(0);
+    }
+  }
+
+  public selectEffectById(effectId: number): void {
+    const categoryData = this._categories.get("effects_icon");
+    if (!categoryData) return;
+
+    // Find the part with the matching effect ID
+    const partIndex = categoryData.parts.findIndex(part => part.id === effectId);
+    if (partIndex !== -1) {
+      categoryData.selectPartIndex(partIndex);
+      console.log("Pre-selected effect:", effectId, "at index:", partIndex);
     }
   }
 
@@ -93,19 +108,17 @@ export class EffectsModel extends CategoryBaseModel {
     if (!partItem) return;
     console.log("Selected effect part:", partItem.id);
 
+    const effectId = partItem.isClear ? 0 : partItem.id;
+
     // For effects, we set the avatarEffectType directly instead of using figure parts
-    if (partItem.isClear) {
-      // "None" selected - set effect to 0
-      if (AvatarEditorUtilities.CURRENT_FIGURE) {
-        AvatarEditorUtilities.CURRENT_FIGURE.avatarEffectType = 0;
-        AvatarEditorUtilities.CURRENT_FIGURE.updateView(); // Trigger preview update
-      }
-    } else {
-      // Effect selected - set the effect ID
-      if (AvatarEditorUtilities.CURRENT_FIGURE) {
-        AvatarEditorUtilities.CURRENT_FIGURE.avatarEffectType = partItem.id;
-        AvatarEditorUtilities.CURRENT_FIGURE.updateView(); // Trigger preview update
-      }
+    if (AvatarEditorUtilities.CURRENT_FIGURE) {
+      AvatarEditorUtilities.CURRENT_FIGURE.avatarEffectType = effectId;
+      AvatarEditorUtilities.CURRENT_FIGURE.updateView(); // Trigger preview update
+    }
+    
+    // Notify the main component about effect selection
+    if (AvatarEditorUtilities.ON_EFFECT_SELECTED) {
+      AvatarEditorUtilities.ON_EFFECT_SELECTED(effectId);
     }
   }
 
