@@ -1,5 +1,8 @@
 import {
   AvatarEditorFigureCategory,
+  AvatarEffectSelectedComposer,
+  AvatarEffectSelectedEvent,
+  AvatarEffectsEvent,
   FigureSetIdsMessageEvent,
   GetWardrobeMessageComposer,
   IAvatarFigureContainer,
@@ -16,6 +19,7 @@ import {
   AvatarEditorAction,
   AvatarEditorUtilities,
   BodyModel,
+  EffectsModel,
   FigureData,
   GetAvatarRenderManager,
   GetClubMemberLevel,
@@ -108,6 +112,50 @@ export const AvatarEditorView: FC<{}> = props => {
     setSavedFigures(savedFigures);
   });
 
+  useMessageEvent<AvatarEffectsEvent>(AvatarEffectsEvent, event => {
+    const effects = event.getParser().effects;
+    console.log("Received avatar effects:", effects);
+
+    // Update EffectsModel with available effects
+    if (effects && effects.length > 0) {
+      const effectIds = effects.map((effect: any) => effect.type as number);
+      EffectsModel.setAvailableEffects(effectIds);
+
+      // Reset categories to update the effects list
+      resetCategories();
+
+      console.log("Updated EffectsModel with effects:", effectIds);
+    }
+  });
+
+  useMessageEvent<AvatarEffectSelectedEvent>(AvatarEffectSelectedEvent, event => {
+    const type = event.getParser().type;
+
+    console.log("Avatar effect selected:", type);
+
+    // Update figureData with selected effect
+    if (figureData) {
+      figureData.avatarEffectType = type;
+      console.log("Updated figureData.avatarEffectType to:", type);
+    }
+
+    try {
+      if (!categories) return;
+
+      const effectsModel = categories.get(AvatarEditorFigureCategory.EFFECTS) as any;
+
+      if (!effectsModel) return;
+
+      const categoryData = effectsModel.getCategoryData(AvatarEditorFigureCategory.EFFECTS);
+
+      if (!categoryData) return;
+
+      categoryData.selectPartId(type);
+    } catch (e) {
+      console.warn("Could not preselect avatar effect in model:", e);
+    }
+  });
+
   const selectCategory = useCallback(
     (name: string) => {
       if (!categories) return;
@@ -125,6 +173,7 @@ export const AvatarEditorView: FC<{}> = props => {
       categories.set(AvatarEditorFigureCategory.HEAD, new HeadModel());
       categories.set(AvatarEditorFigureCategory.TORSO, new TorsoModel());
       categories.set(AvatarEditorFigureCategory.LEGS, new LegModel());
+      categories.set(AvatarEditorFigureCategory.EFFECTS, new EffectsModel());
     } else {
       categories.set(AvatarEditorFigureCategory.TORSO, new TorsoModel());
       categories.set(AvatarEditorFigureCategory.LEGS, new LegModel());
@@ -171,6 +220,8 @@ export const AvatarEditorView: FC<{}> = props => {
 
   const processAction = useCallback(
     (action: string) => {
+      const isEffectsCategory = activeCategory?.name === AvatarEditorFigureCategory.EFFECTS;
+
       switch (action) {
         case AvatarEditorAction.ACTION_CLEAR:
           loadAvatarInEditor(figureData.getFigureStringWithFace(0, false), figureData.gender, false);
@@ -187,6 +238,11 @@ export const AvatarEditorView: FC<{}> = props => {
           resetCategories();
           return;
         case AvatarEditorAction.ACTION_SAVE:
+          // Send AvatarEffectSelectedComposer if we have an avatar effect set
+          if (figureData.avatarEffectType >= 0 && !genderFootballGate) {
+            SendMessageComposer(new AvatarEffectSelectedComposer(figureData.avatarEffectType));
+          }
+
           !genderFootballGate
             ? SendMessageComposer(new UserFigureComposer(figureData.gender, figureData.getFigureString()))
             : SendMessageComposer(new SetClothingChangeDataMessageComposer(objectFootballGate, genderFootballGate, figureData.getFigureString()));
@@ -195,7 +251,7 @@ export const AvatarEditorView: FC<{}> = props => {
           return;
       }
     },
-    [loadAvatarInEditor, figureData, resetCategories, lastFigure, lastGender, figureSetIds, genderFootballGate, objectFootballGate]
+    [loadAvatarInEditor, figureData, resetCategories, lastFigure, lastGender, figureSetIds, genderFootballGate, objectFootballGate, activeCategory]
   );
 
   const setGender = useCallback(
@@ -351,19 +407,23 @@ export const AvatarEditorView: FC<{}> = props => {
           <Column size={isWardrobeVisible ? 6 : 4} overflow="hidden">
             <Flex gap={2} className="w-100 h-100">
               <Flex column={true} className="w-100">
-                <AvatarEditorFigurePreviewView figureData={figureData} />
+                <AvatarEditorFigurePreviewView figureData={figureData} activeCategory={activeCategory?.name} />
                 <Column grow gap={1}>
                   {!genderFootballGate && (
                     <ButtonGroup className="action-buttons w-100">
                       <Button variant="secondary" onClick={event => processAction(AvatarEditorAction.ACTION_RESET)}>
                         <FaUndo className="fa-icon" />
                       </Button>
-                      <Button variant="secondary" onClick={event => processAction(AvatarEditorAction.ACTION_CLEAR)}>
-                        <FaTrash className="fa-icon" />
-                      </Button>
-                      <Button variant="secondary" onClick={event => processAction(AvatarEditorAction.ACTION_RANDOMIZE)}>
-                        <FaDice className="fa-icon" />
-                      </Button>
+                      {activeCategory?.name !== AvatarEditorFigureCategory.EFFECTS && (
+                        <>
+                          <Button variant="secondary" onClick={event => processAction(AvatarEditorAction.ACTION_CLEAR)}>
+                            <FaTrash className="fa-icon" />
+                          </Button>
+                          <Button variant="secondary" onClick={event => processAction(AvatarEditorAction.ACTION_RANDOMIZE)}>
+                            <FaDice className="fa-icon" />
+                          </Button>
+                        </>
+                      )}
                     </ButtonGroup>
                   )}
                   <Button className="w-10" variant="success" onClick={event => processAction(AvatarEditorAction.ACTION_SAVE)}>

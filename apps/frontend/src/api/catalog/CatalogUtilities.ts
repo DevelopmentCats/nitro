@@ -1,10 +1,11 @@
 import {SellablePetPaletteData} from "@nitro/renderer";
 
-import {GetRoomEngine} from "../nitro";
+import {GetConfiguration, GetRoomEngine} from "../nitro";
 import {ICatalogNode} from "./ICatalogNode";
 
 export const GetPixelEffectIcon = (id: number) => {
-  return "";
+  const url = GetConfiguration<string>("effect.asset.url", "");
+  return url.replace("%effectid%", id.toString());
 };
 
 export const GetSubscriptionProductIcon = (id: number) => {
@@ -205,3 +206,4 @@ export function GetPetAvailableColors(petIndex: number, palettes: SellablePetPal
     }
   }
 }
+

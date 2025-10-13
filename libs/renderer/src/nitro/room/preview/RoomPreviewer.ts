@@ -671,6 +671,10 @@ export class RoomPreviewer {
     if (this.isRoomEngineReady) this._roomEngine.updateRoomInstancePlaneVisibility(this._previewRoomId, wallsVisible, floorsVisible);
   }
 
+  public updateRoomInstancePlaneThickness (floorThickness: number, wallThickness: number): void {
+    if (this.isRoomEngineReady) this._roomEngine.updateRoomInstancePlaneThickness(this._previewRoomId, floorThickness, wallThickness);
+  }
+
   private getCanvasOffset(point: Point): Point {
     if (this._currentPreviewRectangle.width < 1 || this._currentPreviewRectangle.height < 1) return point;
 

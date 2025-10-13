@@ -1,4 +1,5 @@
 export * from "./LayoutAvatarImageView";
+export * from "./LayoutAvatarRoomPreviewView";
 export * from "./LayoutBackgroundImage";
 export * from "./LayoutBadgeImageView";
 export * from "./LayoutCounterTimeView";

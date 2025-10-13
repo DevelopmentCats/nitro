@@ -1,15 +1,16 @@
-import {AvatarDirectionAngle} from "@nitro/renderer";
+import {AvatarDirectionAngle, AvatarEditorFigureCategory} from "@nitro/renderer";
 import {FC, useEffect, useState} from "react";
 
 import {FigureData} from "../../../api";
-import {Base, Column, LayoutAvatarImageView} from "../../../common";
+import {Base, Column, LayoutAvatarImageView, LayoutAvatarRoomPreviewView} from "../../../common";
 
 export interface AvatarEditorFigurePreviewViewProps {
   figureData: FigureData;
+  activeCategory?: string;
 }
 
 export const AvatarEditorFigurePreviewView: FC<AvatarEditorFigurePreviewViewProps> = props => {
-  const {figureData = null} = props;
+  const {figureData = null, activeCategory = null} = props;
   const [updateId, setUpdateId] = useState(-1);
 
   const rotateFigure = (direction: number) => {
@@ -34,10 +35,34 @@ export const AvatarEditorFigurePreviewView: FC<AvatarEditorFigurePreviewViewProp
     };
   }, [figureData]);
 
+  // Check if we're in the effects tab
+  const isEffectsTab = activeCategory === AvatarEditorFigureCategory.EFFECTS;
+
   return (
     <Column className="figure-preview-container" overflow="hidden" position="relative">
-      <LayoutAvatarImageView figure={figureData.getFigureString()} direction={figureData.direction} scale={2} />
-      <Base className="avatar-shadow" />
+      {isEffectsTab ? (
+        // Use RoomPreview for effects tab to properly render effects
+        <LayoutAvatarRoomPreviewView
+          key={`avatar-room-${figureData.getFigureString()}-${figureData.direction}-${figureData.avatarEffectType}-${updateId}`}
+          figure={figureData.getFigureString()}
+          gender={figureData.gender}
+          direction={figureData.direction}
+          effect={figureData.avatarEffectType}
+          scale={1}
+          height={150}
+        />
+      ) : (
+        // Use static avatar view for non-effects tabs
+        <>
+          <LayoutAvatarImageView
+            key={`avatar-static-${figureData.getFigureString()}-${figureData.direction}-${updateId}`}
+            figure={figureData.getFigureString()}
+            direction={figureData.direction}
+            scale={2}
+          />
+          <Base className="avatar-shadow" />
+        </>
+      )}
       <Base className="arrow-container">
         <i className="icon arrow-left" onClick={event => rotateFigure(figureData.direction + 1)} />
       </Base>

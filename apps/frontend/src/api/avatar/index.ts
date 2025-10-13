@@ -5,6 +5,7 @@ export * from "./AvatarEditorUtilities";
 export * from "./BodyModel";
 export * from "./CategoryBaseModel";
 export * from "./CategoryData";
+export * from "./EffectsModel";
 export * from "./FigureData";
 export * from "./FigureGenerator";
 export * from "./HeadModel";
