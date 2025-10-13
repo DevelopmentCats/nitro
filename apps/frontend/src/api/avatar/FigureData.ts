@@ -252,6 +252,7 @@ export class FigureData {
 
   public set avatarEffectType(k: number) {
     this._avatarEffectType = k;
+    this.updateView();
   }
 
   public get avatarEffectType(): number {

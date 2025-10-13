@@ -46,6 +46,7 @@ import {
   NitroCardTabsItemView,
   NitroCardTabsView,
   NitroCardView,
+  Text,
 } from "../../common";
 import {useMessageEvent} from "../../hooks";
 import {AvatarEditorFigurePreviewView} from "./views/AvatarEditorFigurePreviewView";
@@ -71,6 +72,7 @@ export const AvatarEditorView: FC<{}> = props => {
   const [isInitalized, setIsInitalized] = useState(false);
   const [genderFootballGate, setGenderFootballGate] = useState<string>(null);
   const [objectFootballGate, setObjectFootballGate] = useState<number>(null);
+  const [currentEffectId, setCurrentEffectId] = useState<number>(-1);
 
   const DEFAULT_MALE_FOOTBALL_GATE =
     JSON.parse(window.localStorage.getItem("nitro.look.footballgate.M")) || "ch-3109-92-1408.lg-3116-82-1408.sh-3115-1408-1408";
@@ -146,7 +148,7 @@ export const AvatarEditorView: FC<{}> = props => {
 
       if (!effectsModel) return;
 
-      const categoryData = effectsModel.getCategoryData(AvatarEditorFigureCategory.EFFECTS);
+      const categoryData = effectsModel.getCategoryData("effects_icon");
 
       if (!categoryData) return;
 
@@ -225,6 +227,9 @@ export const AvatarEditorView: FC<{}> = props => {
       switch (action) {
         case AvatarEditorAction.ACTION_CLEAR:
           loadAvatarInEditor(figureData.getFigureStringWithFace(0, false), figureData.gender, false);
+          if (figureData) {
+            figureData.avatarEffectType = 0;
+          }
           resetCategories();
           return;
         case AvatarEditorAction.ACTION_RESET:
@@ -313,9 +318,14 @@ export const AvatarEditorView: FC<{}> = props => {
 
     AvatarEditorUtilities.CURRENT_FIGURE = figureData;
 
+    // Initialize the current effect ID
+    setCurrentEffectId(figureData.avatarEffectType);
+
     resetCategories();
 
-    return () => (AvatarEditorUtilities.CURRENT_FIGURE = null);
+    return () => {
+      AvatarEditorUtilities.CURRENT_FIGURE = null;
+    };
   }, [figureData, resetCategories]);
 
   useEffect(() => {
@@ -407,7 +417,16 @@ export const AvatarEditorView: FC<{}> = props => {
           <Column size={isWardrobeVisible ? 6 : 4} overflow="hidden">
             <Flex gap={2} className="w-100 h-100">
               <Flex column={true} className="w-100">
-                <AvatarEditorFigurePreviewView figureData={figureData} activeCategory={activeCategory?.name} />
+                <AvatarEditorFigurePreviewView 
+                  figureData={figureData} 
+                  activeCategory={activeCategory?.name}
+                  onFigureUpdate={() => setCurrentEffectId(figureData.avatarEffectType)}
+                />
+                {activeCategory?.name === AvatarEditorFigureCategory.EFFECTS && currentEffectId > 0 && (
+                  <Flex center className="w-100 py-2">
+                    <Text bold>{LocalizeText(`fx_${currentEffectId}`)}</Text>
+                  </Flex>
+                )}
                 <Column grow gap={1}>
                   {!genderFootballGate && (
                     <ButtonGroup className="action-buttons w-100">

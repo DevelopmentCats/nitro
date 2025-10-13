@@ -58,7 +58,7 @@ export class EffectsModel extends CategoryBaseModel {
     // Add available effects from static property or default sample effects
     const effectsToAdd = EffectsModel._availableEffects.length > 0 
       ? EffectsModel._availableEffects 
-      : [1, 2, 3, 4, 5]; // Fallback sample effects
+      : [];
     
     for (const effectId of effectsToAdd) {
       if (effectId > 0) { // Don't add effect 0 twice
@@ -67,13 +67,13 @@ export class EffectsModel extends CategoryBaseModel {
       }
     }
 
-    const categoryData = new CategoryData("effects", partItems, colorItems);
+    const categoryData = new CategoryData("effects_icon", partItems, colorItems);
     
     if (!this._categories) {
       this._categories = new Map();
     }
     
-    this._categories.set("effects", categoryData);
+    this._categories.set("effects_icon", categoryData);
 
     // Set the current selection to "None" by default
     if (categoryData.parts.length > 0) {

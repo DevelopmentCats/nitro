@@ -77,11 +77,17 @@ export const AvatarEditorModelView: FC<AvatarEditorModelViewProps> = props => {
 
               return (
                 <div key={name}>
-                  <Flex center pointer className="category-item" onClick={event => selectCategory(name)}>
+                  <Flex center pointer className="category-item" gap={3} onClick={event => selectCategory(name)}>
                     {isFromFootballGate && CATEGORY_FOOTBALL_GATE.includes(category.name) && (
                       <AvatarEditorIcon icon={category.name} selected={activeCategory === category} />
                     )}
                     {!isFromFootballGate && <AvatarEditorIcon icon={category.name} selected={activeCategory === category} />}
+                    {!isFromFootballGate && category.name === "effects_icon" && (
+                      <Flex center pointer className="category-item" gap={3} onClick={event => setGender(FigureData.MALE)}>
+                        <AvatarEditorIcon icon="effects" selected={true} />
+                        <Text bold>{LocalizeText("avatareditor.category.effects")}</Text>
+                      </Flex>
+                    )}
                   </Flex>
                 </div>
               );

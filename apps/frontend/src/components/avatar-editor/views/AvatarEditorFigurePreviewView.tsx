@@ -7,10 +7,11 @@ import {Base, Column, LayoutAvatarImageView, LayoutAvatarRoomPreviewView} from "
 export interface AvatarEditorFigurePreviewViewProps {
   figureData: FigureData;
   activeCategory?: string;
+  onFigureUpdate?: () => void;
 }
 
 export const AvatarEditorFigurePreviewView: FC<AvatarEditorFigurePreviewViewProps> = props => {
-  const {figureData = null, activeCategory = null} = props;
+  const {figureData = null, activeCategory = null, onFigureUpdate = null} = props;
   const [updateId, setUpdateId] = useState(-1);
 
   const rotateFigure = (direction: number) => {
@@ -28,12 +29,16 @@ export const AvatarEditorFigurePreviewView: FC<AvatarEditorFigurePreviewViewProp
   useEffect(() => {
     if (!figureData) return;
 
-    figureData.notify = () => setUpdateId(prevValue => prevValue + 1);
+    figureData.notify = () => {
+      setUpdateId(prevValue => prevValue + 1);
+      // Call parent's onFigureUpdate callback if provided
+      if (onFigureUpdate) onFigureUpdate();
+    };
 
     return () => {
       figureData.notify = null;
     };
-  }, [figureData]);
+  }, [figureData, onFigureUpdate]);
 
   // Check if we're in the effects tab
   const isEffectsTab = activeCategory === AvatarEditorFigureCategory.EFFECTS;

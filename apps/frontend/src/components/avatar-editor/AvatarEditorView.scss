@@ -1,6 +1,13 @@
 .nitro-avatar-editor-spritesheet {
     background: url('@/assets/images/avatareditor/avatar-editor-spritesheet.png') transparent no-repeat;
 
+    &.effects-icon {
+        width: 25px;
+        height: 25px;
+        background: url(@/assets/images/avatareditor/effects_icon.png) no-repeat center !important;
+    }
+
+
     &.arrow-left-icon {
         width: 28px;
         height: 21px;
@@ -415,6 +422,10 @@
 
         .legs {
             background: url(@/assets/images/avatareditor/legs.png) no-repeat center;
+        }
+
+        .effects {
+            background: url(@/assets/images/avatareditor/effects.png) no-repeat center;
         }
 
         .tab-wardrobe {
