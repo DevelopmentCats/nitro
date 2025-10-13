@@ -5,6 +5,8 @@
   "scripts": {},
   "private": true,
   "dependencies": {
+    "@emoji-mart/data": "^1.2.1",
+    "@emoji-mart/react": "^1.1.1",
     "@pixi/app": "~6.5.0",
     "@pixi/basis": "~6.5.0",
     "@pixi/canvas-display": "~6.5.0",
@@ -39,6 +41,7 @@
     "@pixi/utils": "~6.5.0",
     "@swc/helpers": "~0.5.3",
     "@tanstack/react-virtual": "3.0.0-alpha.0",
+    "emoji-mart": "^5.6.0",
     "gifuct-js": "^2.1.2",
     "howler": "^2.2.3",
     "pako": "^2.0.4",

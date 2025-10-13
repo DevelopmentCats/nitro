@@ -38,6 +38,9 @@
   }
 
   #toolbar-chat-input-container {
+    width: 100%;
+    display: block !important;
+
     @include media-breakpoint-down(sm) {
       width: 0px;
       height: 0px;
@@ -75,3 +78,11 @@
   z-index: 500;
   filter: drop-shadow(2px 1px 0 rgba($white, 1)) drop-shadow(-2px 1px 0 rgba($white, 1)) drop-shadow(0 -2px 0 rgba($white, 1));
 }
+
+.widthsizemax {
+  width: 100%;
+  @include media-breakpoint-down(sm) {
+    justify-content: center;
+  }
+}
+

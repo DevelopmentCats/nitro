@@ -39,7 +39,7 @@ const useChatInputWidgetState = () => {
   const {showNitroAlert = null, showConfirm = null} = useNotification();
   const {roomSession = null} = useRoom();
 
-  const sendChat = (text: string, chatType: number, recipientName: string = "", styleId: number = 0) => {
+  const sendChat = (text: string, chatType: number, recipientName: string = "", styleId: number = 0): void => {
     if (text === "") return null;
 
     const parts = text.split(" ");
@@ -281,3 +281,4 @@ const useChatInputWidgetState = () => {
 };
 
 export const useChatInputWidget = useChatInputWidgetState;
+

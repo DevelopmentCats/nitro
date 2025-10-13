@@ -1,4 +1,4 @@
-const allowedColours: Map<string, string> = new Map();
+export const allowedColours: Map<string, string> = new Map();
 
 allowedColours.set("r", "red");
 allowedColours.set("b", "blue");

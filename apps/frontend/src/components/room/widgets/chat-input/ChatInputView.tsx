@@ -4,14 +4,16 @@ import {createPortal} from "react-dom";
 
 import {
   ChatMessageTypeEnum,
+  CreateLinkEvent,
   GetClubMemberLevel,
   GetConfiguration,
   GetSessionDataManager,
   LocalizeText,
   RoomWidgetUpdateChatInputContentEvent,
 } from "../../../../api";
-import {Text} from "../../../../common";
+import {Base, Flex, Text} from "../../../../common";
 import {useChatInputWidget, useRoom, useSessionInfo, useUiEvent} from "../../../../hooks";
+import {ChatInputEmojiSelectorView} from "./ChatInputEmojiSelectorView";
 import {ChatInputStyleSelectorView} from "./ChatInputStyleSelectorView";
 
 export const ChatInputView: FC<{}> = props => {
@@ -19,8 +21,8 @@ export const ChatInputView: FC<{}> = props => {
   const {chatStyleId = 0, updateChatStyleId = null} = useSessionInfo();
   const {selectedUsername = "", floodBlocked = false, floodBlockedSeconds = 0, setIsTyping = null, setIsIdle = null, sendChat = null} = useChatInputWidget();
   const {roomSession = null} = useRoom();
-  const inputRef = useRef<HTMLInputElement>();
 
+  const inputRef = useRef<HTMLInputElement>();
   const chatModeIdWhisper = useMemo(() => LocalizeText("widgets.chatinput.mode.whisper"), []);
   const chatModeIdShout = useMemo(() => LocalizeText("widgets.chatinput.mode.shout"), []);
   const chatModeIdSpeak = useMemo(() => LocalizeText("widgets.chatinput.mode.speak"), []);
@@ -202,6 +204,11 @@ export const ChatInputView: FC<{}> = props => {
     return styleIds;
   }, []);
 
+  const addEmojiToChat = (emoji: string) => {
+    setChatValue(chatValue + emoji);
+    setIsTyping(true);
+  };
+
   useEffect(() => {
     document.body.addEventListener("keydown", onKeyDownEvent);
 
@@ -235,8 +242,13 @@ export const ChatInputView: FC<{}> = props => {
         )}
         {floodBlocked && <Text variant="danger">{LocalizeText("chat.input.alert.flood", ["time"], [floodBlockedSeconds.toString()])} </Text>}
       </div>
-      <ChatInputStyleSelectorView chatStyleId={chatStyleId} chatStyleIds={chatStyleIds} selectChatStyleId={updateChatStyleId} />
+      <Flex>
+        <ChatInputEmojiSelectorView addChatEmoji={addEmojiToChat} />
+        <ChatInputStyleSelectorView chatStyleId={chatStyleId} chatStyleIds={chatStyleIds} selectChatStyleId={updateChatStyleId} />
+        <Base className="info-habbopages" onClick={() => CreateLinkEvent("habbopages/chat/chatting")}></Base>
+      </Flex>
     </div>,
     document.getElementById("toolbar-chat-input-container")
   );
 };
+
