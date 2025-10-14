@@ -33,13 +33,7 @@ const useFriendsState = () => {
   const onlineFriends = useMemo(() => {
     const onlineFriends = friends.filter(friend => friend.online);
 
-    onlineFriends.sort((a, b) => {
-      if (a.name < b.name) return -1;
-
-      if (a.name > b.name) return 1;
-
-      return 0;
-    });
+    onlineFriends.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
 
     return onlineFriends;
   }, [friends]);
@@ -47,13 +41,7 @@ const useFriendsState = () => {
   const offlineFriends = useMemo(() => {
     const offlineFriends = friends.filter(friend => !friend.online);
 
-    offlineFriends.sort((a, b) => {
-      if (a.name < b.name) return -1;
-
-      if (a.name > b.name) return 1;
-
-      return 0;
-    });
+    offlineFriends.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
 
     return offlineFriends;
   }, [friends]);
@@ -269,3 +257,4 @@ const useFriendsState = () => {
 };
 
 export const useFriends = () => useBetween(useFriendsState);
+
