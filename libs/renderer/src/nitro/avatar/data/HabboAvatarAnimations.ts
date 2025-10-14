@@ -297,6 +297,195 @@ export const HabboAvatarAnimations = {
             },
           ],
         },
+        {
+          setType: "cc",
+          frames: [
+            {
+              number: 0,
+              assetPartDefinition: "wlk",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "wlk",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "wlk",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "wlk",
+            },
+          ],
+        },
+        {
+          setType: "ha",
+          frames: [
+            {
+              number: 0,
+              assetPartDefinition: "wlk",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "wlk",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "wlk",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "wlk",
+            },
+          ],
+        },
+        {
+          setType: "he",
+          frames: [
+            {
+              number: 0,
+              assetPartDefinition: "wlk",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "wlk",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "wlk",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "wlk",
+            },
+          ],
+        },
+        {
+          setType: "ca",
+          frames: [
+            {
+              number: 0,
+              assetPartDefinition: "wlk",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "wlk",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "wlk",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "wlk",
+            },
+          ],
+        },
+        {
+          setType: "wa",
+          frames: [
+            {
+              number: 0,
+              assetPartDefinition: "wlk",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "wlk",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "wlk",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "wlk",
+            },
+          ],
+        },
+        {
+          setType: "hr",
+          frames: [
+            {
+              number: 0,
+              assetPartDefinition: "wlk",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "wlk",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "wlk",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "wlk",
+            },
+          ],
+        },
+        {
+          setType: "hrb",
+          frames: [
+            {
+              number: 0,
+              assetPartDefinition: "wlk",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "wlk",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "wlk",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "wlk",
+            },
+          ],
+        },
+        {
+          setType: "ea",
+          frames: [
+            {
+              number: 0,
+              assetPartDefinition: "wlk",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "wlk",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "wlk",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "wlk",
+            },
+          ],
+        },
+        {
+          setType: "fa",
+          frames: [
+            {
+              number: 0,
+              assetPartDefinition: "wlk",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "wlk",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "wlk",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "wlk",
+            },
+          ],
+        },
       ],
     },
     {
@@ -822,6 +1011,1278 @@ export const HabboAvatarAnimations = {
           },
         ],
       },
+    },
+    {
+      id: "Swim",
+      parts: [
+        {
+          setType: "bds",
+          frames: [
+            {
+              number: 0,
+              assetPartDefinition: "swm",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "swm",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "swm",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "swm",
+            },
+          ],
+        },
+        {
+          setType: "ss",
+          frames: [
+            {
+              number: 0,
+              assetPartDefinition: "swm",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "swm",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "swm",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "swm",
+            },
+          ],
+        },
+        {
+          setType: "lhs",
+          frames: [
+            {
+              number: 0,
+              assetPartDefinition: "swm",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "swm",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "swm",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "swm",
+            },
+          ],
+        },
+        {
+          setType: "rhs",
+          frames: [
+            {
+              number: 0,
+              assetPartDefinition: "swm",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "swm",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "swm",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "swm",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "Float",
+      parts: [
+        {
+          setType: "bds",
+          frames: [
+            {
+              number: 3,
+              assetPartDefinition: "sws",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "sws",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "sws",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "sws",
+            },
+            {
+              number: 0,
+              assetPartDefinition: "sws",
+            },
+          ],
+        },
+        {
+          setType: "ss",
+          frames: [
+            {
+              number: 0,
+              assetPartDefinition: "sws",
+            },
+          ],
+        },
+        {
+          setType: "lhs",
+          frames: [
+            {
+              number: 0,
+              assetPartDefinition: "sws",
+            },
+            {
+              number: 0,
+              assetPartDefinition: "sws",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "sws",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "sws",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "sws",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "sws",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "sws",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "sws",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "sws",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "sws",
+            },
+          ],
+        },
+        {
+          setType: "rhs",
+          frames: [
+            {
+              number: 0,
+              assetPartDefinition: "sws",
+            },
+            {
+              number: 0,
+              assetPartDefinition: "sws",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "sws",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "sws",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "sws",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "sws",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "sws",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "sws",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "sws",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "sws",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "SnowWarRun",
+      parts: [
+        {
+          setType: "ch",
+          frames: [
+            {
+              number: 3,
+              assetPartDefinition: "swrun",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "swrun",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "swrun",
+            },
+            {
+              number: 0,
+              assetPartDefinition: "swrun",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "SnowWarDieFront",
+      parts: [
+        {
+          setType: "ch",
+          frames: [
+            {
+              number: 0,
+              assetPartDefinition: "swdie",
+            },
+            {
+              number: 0,
+              assetPartDefinition: "swdie",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "swdie",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "swdie",
+              repeats: 100,
+            },
+          ],
+        },
+      ],
+      offsets: {
+        frames: [
+          {
+            id: 0,
+            directions: [
+              {
+                id: 0,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: 10,
+                    dy: 4,
+                  },
+                ],
+              },
+              {
+                id: 2,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: 10,
+                    dy: 5,
+                  },
+                ],
+              },
+              {
+                id: 4,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: -10,
+                    dy: 5,
+                  },
+                ],
+              },
+              {
+                id: 6,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: -10,
+                    dy: 4,
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: 1,
+            directions: [
+              {
+                id: 0,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: 10,
+                    dy: 4,
+                  },
+                ],
+              },
+              {
+                id: 2,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: 10,
+                    dy: 5,
+                  },
+                ],
+              },
+              {
+                id: 4,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: -10,
+                    dy: 5,
+                  },
+                ],
+              },
+              {
+                id: 6,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: -10,
+                    dy: 4,
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: 2,
+            directions: [
+              {
+                id: 0,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: -100,
+                    dy: 5,
+                  },
+                ],
+              },
+              {
+                id: 2,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: -100,
+                    dy: 5,
+                  },
+                ],
+              },
+              {
+                id: 4,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: -100,
+                    dy: 5,
+                  },
+                ],
+              },
+              {
+                id: 6,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: -100,
+                    dy: 5,
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: 3,
+            repeats: 100,
+            directions: [
+              {
+                id: 0,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: -100,
+                    dy: 5,
+                  },
+                ],
+              },
+              {
+                id: 2,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: -100,
+                    dy: 5,
+                  },
+                ],
+              },
+              {
+                id: 4,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: -100,
+                    dy: 5,
+                  },
+                ],
+              },
+              {
+                id: 6,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: -100,
+                    dy: 5,
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    },
+    {
+      id: "SnowWarDieBack",
+      parts: [
+        {
+          setType: "ch",
+          frames: [
+            {
+              number: 2,
+              assetPartDefinition: "swdie",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "swdie",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "swdie",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "swdie",
+              repeats: 100,
+            },
+          ],
+        },
+      ],
+      offsets: {
+        frames: [
+          {
+            id: 0,
+            directions: [
+              {
+                id: 0,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: -10,
+                    dy: 4,
+                  },
+                ],
+              },
+              {
+                id: 2,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: -10,
+                    dy: 5,
+                  },
+                ],
+              },
+              {
+                id: 4,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: 10,
+                    dy: 5,
+                  },
+                ],
+              },
+              {
+                id: 6,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: 10,
+                    dy: 4,
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: 1,
+            directions: [
+              {
+                id: 0,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: -10,
+                    dy: 4,
+                  },
+                ],
+              },
+              {
+                id: 2,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: -10,
+                    dy: 5,
+                  },
+                ],
+              },
+              {
+                id: 4,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: 10,
+                    dy: 5,
+                  },
+                ],
+              },
+              {
+                id: 6,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: 10,
+                    dy: 4,
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: 2,
+            directions: [
+              {
+                id: 0,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: -100,
+                    dy: 5,
+                  },
+                ],
+              },
+              {
+                id: 2,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: -100,
+                    dy: 5,
+                  },
+                ],
+              },
+              {
+                id: 4,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: -100,
+                    dy: 5,
+                  },
+                ],
+              },
+              {
+                id: 6,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: -100,
+                    dy: 5,
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: 3,
+            repeats: 100,
+            directions: [
+              {
+                id: 0,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: -100,
+                    dy: 5,
+                  },
+                ],
+              },
+              {
+                id: 2,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: -100,
+                    dy: 5,
+                  },
+                ],
+              },
+              {
+                id: 4,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: -100,
+                    dy: 5,
+                  },
+                ],
+              },
+              {
+                id: 6,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: -100,
+                    dy: 5,
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    },
+    {
+      id: "SnowWarPick",
+      parts: [
+        {
+          setType: "ch",
+          frames: [
+            {
+              number: 0,
+              assetPartDefinition: "swpick",
+            },
+          ],
+        },
+      ],
+      offsets: {
+        frames: [
+          {
+            id: 0,
+            directions: [
+              {
+                id: 0,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: 0,
+                    dy: 3,
+                  },
+                ],
+              },
+              {
+                id: 1,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: 0,
+                    dy: 3,
+                  },
+                ],
+              },
+              {
+                id: 2,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: 0,
+                    dy: 3,
+                  },
+                ],
+              },
+              {
+                id: 3,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: 0,
+                    dy: 3,
+                  },
+                ],
+              },
+              {
+                id: 4,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: 0,
+                    dy: 3,
+                  },
+                ],
+              },
+              {
+                id: 5,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: 0,
+                    dy: 3,
+                  },
+                ],
+              },
+              {
+                id: 6,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: 0,
+                    dy: 3,
+                  },
+                ],
+              },
+              {
+                id: 7,
+                bodyParts: [
+                  {
+                    id: "head",
+                    dx: 0,
+                    dy: 3,
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    },
+    {
+      id: "SnowWarThrow",
+      parts: [
+        {
+          setType: "ch",
+          frames: [
+            {
+              number: 0,
+              assetPartDefinition: "swthrow",
+            },
+            {
+              number: 0,
+              assetPartDefinition: "swthrow",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "swthrow",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "swthrow",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "swthrow",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "swthrow",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "swthrow",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "swthrow",
+            },
+            {
+              number: 0,
+              assetPartDefinition: "swthrow",
+              repeats: 100,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "Default",
+      parts: [
+        {
+          setType: "ch",
+          frames: [
+            {
+              number: 0,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 4,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 5,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 6,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 7,
+              assetPartDefinition: "std",
+            },
+          ],
+        },
+        {
+          setType: "cc",
+          frames: [
+            {
+              number: 0,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 4,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 5,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 6,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 7,
+              assetPartDefinition: "std",
+            },
+          ],
+        },
+        {
+          setType: "ls",
+          frames: [
+            {
+              number: 0,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 4,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 5,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 6,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 7,
+              assetPartDefinition: "std",
+            },
+          ],
+        },
+        {
+          setType: "lc",
+          frames: [
+            {
+              number: 0,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 4,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 5,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 6,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 7,
+              assetPartDefinition: "std",
+            },
+          ],
+        },
+        {
+          setType: "rs",
+          frames: [
+            {
+              number: 0,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 4,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 5,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 6,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 7,
+              assetPartDefinition: "std",
+            },
+          ],
+        },
+        {
+          setType: "rc",
+          frames: [
+            {
+              number: 0,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 4,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 5,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 6,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 7,
+              assetPartDefinition: "std",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "Sleep",
+      parts: [
+        {
+          setType: "ch",
+          frames: [
+            {
+              number: 0,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 4,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 5,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 6,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 7,
+              assetPartDefinition: "std",
+            },
+          ],
+        },
+        {
+          setType: "cc",
+          frames: [
+            {
+              number: 0,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 4,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 5,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 6,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 7,
+              assetPartDefinition: "std",
+            },
+          ],
+        },
+        {
+          setType: "ls",
+          frames: [
+            {
+              number: 0,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 4,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 5,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 6,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 7,
+              assetPartDefinition: "std",
+            },
+          ],
+        },
+        {
+          setType: "lc",
+          frames: [
+            {
+              number: 0,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 4,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 5,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 6,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 7,
+              assetPartDefinition: "std",
+            },
+          ],
+        },
+        {
+          setType: "rs",
+          frames: [
+            {
+              number: 0,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 4,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 5,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 6,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 7,
+              assetPartDefinition: "std",
+            },
+          ],
+        },
+        {
+          setType: "rc",
+          frames: [
+            {
+              number: 0,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 1,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 2,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 3,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 4,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 5,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 6,
+              assetPartDefinition: "std",
+            },
+            {
+              number: 7,
+              assetPartDefinition: "std",
+            },
+          ],
+        },
+      ],
     },
   ],
 };
