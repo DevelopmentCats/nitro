@@ -100,15 +100,9 @@ export class PollHandler extends BaseHandler {
 
     if (!parser) return;
 
-    const pollEvent = new RoomSessionVoteEvent(
-      RoomSessionVoteEvent.VOTE_RESULT,
-      session,
-      parser.question,
-      parser.choices,
-      parser.SafeStr_7651,
-      parser.SafeStr_7654
-    );
+    const pollEvent = new RoomSessionVoteEvent(RoomSessionVoteEvent.VOTE_RESULT, session, parser.question, parser.choices, parser.results, parser.timer);
 
     this.listener.events.dispatchEvent(pollEvent);
   }
 }
+
