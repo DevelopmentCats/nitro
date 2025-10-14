@@ -328,6 +328,7 @@ import {
   GetPromoArticlesComposer,
   GetQuestsMessageComposer,
   GetQuizQuestionsComposer,
+  GetRecyclerPrizesMessageComposer,
   GetRecyclerStatusMessageComposer,
   GetRentOrBuyoutOfferMessageComposer,
   GetResolutionAchievementsMessageComposer,
@@ -642,6 +643,7 @@ import {
   RateFlatMessageComposer,
   RecycleItemsMessageComposer,
   RecyclerFinishedMessageEvent,
+  RecyclerPrizesMessageEvent,
   RecyclerStatusMessageEvent,
   RedeemCommunityGoalPrizeMessageComposer,
   RedeemItemClothingComposer,
@@ -1461,6 +1463,7 @@ export class NitroMessages implements IMessageConfiguration {
     this._events.set(IncomingHeader.RENTABLE_SPACE_STATUS, RentableSpaceStatusMessageEvent);
     this._events.set(IncomingHeader.RENTABLE_SPACE_RENT_FAILED, RentableSpaceRentFailedMessageEvent);
     // RECYCLER
+    this._events.set(IncomingHeader.RECYCLER_PRIZES, RecyclerPrizesMessageEvent);
     this._events.set(IncomingHeader.RECYCLER_STATUS, RecyclerStatusMessageEvent);
     this._events.set(IncomingHeader.RECYCLER_FINISHED, RecyclerFinishedMessageEvent);
     // EMAIL
@@ -2056,7 +2059,8 @@ export class NitroMessages implements IMessageConfiguration {
     this._composers.set(OutgoingHeader.RENTABLE_SPACE_CANCEL_RENT, RentableSpaceCancelRentMessageComposer);
     this._composers.set(OutgoingHeader.RENTABLE_SPACE_RENT, RentableSpaceRentMessageComposer);
     this._composers.set(OutgoingHeader.RENTABLE_SPACE_STATUS, RentableSpaceStatusMessageComposer);
-    // RECYCLER
+
+    this._composers.set(OutgoingHeader.RECYCLER_PRIZES, GetRecyclerPrizesMessageComposer);
     this._composers.set(OutgoingHeader.RECYCLER_STATUS, GetRecyclerStatusMessageComposer);
     this._composers.set(OutgoingHeader.RECYCLER_ITEMS, RecycleItemsMessageComposer);
 
@@ -2081,3 +2085,4 @@ export class NitroMessages implements IMessageConfiguration {
     return this._composers;
   }
 }
+

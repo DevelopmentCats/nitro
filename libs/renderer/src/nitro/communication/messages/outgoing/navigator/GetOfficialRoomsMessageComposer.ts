@@ -3,8 +3,8 @@ import {IMessageComposer} from "../../../../../api";
 export class GetOfficialRoomsMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetOfficialRoomsMessageComposer>> {
   private _data: ConstructorParameters<typeof GetOfficialRoomsMessageComposer>;
 
-  constructor(k: number = 0) {
-    this._data = [k];
+  constructor(adIndex: number = 0) {
+    this._data = [adIndex];
   }
 
   public getMessageArray() {
@@ -15,3 +15,4 @@ export class GetOfficialRoomsMessageComposer implements IMessageComposer<Constru
     return;
   }
 }
+

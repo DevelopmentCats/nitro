@@ -3,8 +3,8 @@ import {IMessageComposer} from "../../../../../api";
 export class GetNextTargetedOfferComposer implements IMessageComposer<ConstructorParameters<typeof GetNextTargetedOfferComposer>> {
   private _data: ConstructorParameters<typeof GetNextTargetedOfferComposer>;
 
-  constructor(k: number) {
-    this._data = [k];
+  constructor(targetedOfferId: number) {
+    this._data = [targetedOfferId];
   }
 
   public getMessageArray() {
@@ -15,3 +15,4 @@ export class GetNextTargetedOfferComposer implements IMessageComposer<Constructo
     this._data = null;
   }
 }
+

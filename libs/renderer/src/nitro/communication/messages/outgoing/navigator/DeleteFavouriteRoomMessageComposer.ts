@@ -3,8 +3,8 @@ import {IMessageComposer} from "../../../../../api";
 export class DeleteFavouriteRoomMessageComposer implements IMessageComposer<ConstructorParameters<typeof DeleteFavouriteRoomMessageComposer>> {
   private _data: ConstructorParameters<typeof DeleteFavouriteRoomMessageComposer>;
 
-  constructor(k: number) {
-    this._data = [k];
+  constructor(flatId: number) {
+    this._data = [flatId];
   }
 
   public getMessageArray() {
@@ -15,3 +15,4 @@ export class DeleteFavouriteRoomMessageComposer implements IMessageComposer<Cons
     return;
   }
 }
+

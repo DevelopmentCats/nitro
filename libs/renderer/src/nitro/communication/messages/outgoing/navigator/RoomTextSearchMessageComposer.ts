@@ -3,8 +3,8 @@ import {IMessageComposer} from "../../../../../api";
 export class RoomTextSearchMessageComposer implements IMessageComposer<ConstructorParameters<typeof RoomTextSearchMessageComposer>> {
   private _data: ConstructorParameters<typeof RoomTextSearchMessageComposer>;
 
-  constructor(k: string) {
-    this._data = [k];
+  constructor(search: string) {
+    this._data = [search];
   }
 
   public getMessageArray() {
@@ -15,3 +15,4 @@ export class RoomTextSearchMessageComposer implements IMessageComposer<Construct
     return;
   }
 }
+

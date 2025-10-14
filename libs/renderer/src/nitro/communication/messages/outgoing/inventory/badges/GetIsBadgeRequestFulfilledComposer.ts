@@ -3,8 +3,8 @@ import {IMessageComposer} from "../../../../../../api";
 export class GetIsBadgeRequestFulfilledComposer implements IMessageComposer<ConstructorParameters<typeof GetIsBadgeRequestFulfilledComposer>> {
   private _data: ConstructorParameters<typeof GetIsBadgeRequestFulfilledComposer>;
 
-  constructor(k: string) {
-    this._data = [k];
+  constructor(requestCode: string) {
+    this._data = [requestCode];
   }
 
   dispose(): void {
@@ -15,3 +15,4 @@ export class GetIsBadgeRequestFulfilledComposer implements IMessageComposer<Cons
     return this._data;
   }
 }
+

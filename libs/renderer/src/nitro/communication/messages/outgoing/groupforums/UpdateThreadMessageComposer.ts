@@ -3,8 +3,8 @@ import {IMessageComposer} from "../../../../../api";
 export class UpdateThreadMessageComposer implements IMessageComposer<ConstructorParameters<typeof UpdateThreadMessageComposer>> {
   private _data: ConstructorParameters<typeof UpdateThreadMessageComposer>;
 
-  constructor(k: number, _arg_2: number, _arg_3: boolean, _arg_4: boolean) {
-    this._data = [k, _arg_2, _arg_4, _arg_3];
+  constructor(groupId: number, threadId: number, isLocked: boolean, isPinned: boolean) {
+    this._data = [groupId, threadId, isPinned, isLocked];
   }
 
   public getMessageArray() {
@@ -15,3 +15,4 @@ export class UpdateThreadMessageComposer implements IMessageComposer<Constructor
     return;
   }
 }
+

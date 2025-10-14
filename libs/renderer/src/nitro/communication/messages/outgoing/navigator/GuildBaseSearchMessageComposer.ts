@@ -3,8 +3,8 @@ import {IMessageComposer} from "../../../../../api";
 export class GuildBaseSearchMessageComposer implements IMessageComposer<ConstructorParameters<typeof GuildBaseSearchMessageComposer>> {
   private _data: ConstructorParameters<typeof GuildBaseSearchMessageComposer>;
 
-  constructor(k: number) {
-    this._data = [k];
+  constructor(adIndex: number) {
+    this._data = [adIndex];
   }
 
   public getMessageArray() {
@@ -15,3 +15,4 @@ export class GuildBaseSearchMessageComposer implements IMessageComposer<Construc
     return;
   }
 }
+

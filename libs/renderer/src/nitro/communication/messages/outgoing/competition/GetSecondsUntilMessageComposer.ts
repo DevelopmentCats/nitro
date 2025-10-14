@@ -3,8 +3,8 @@ import {IMessageComposer} from "../../../../../api";
 export class GetSecondsUntilMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetSecondsUntilMessageComposer>> {
   private _data: ConstructorParameters<typeof GetSecondsUntilMessageComposer>;
 
-  constructor(k: string) {
-    this._data = [k];
+  constructor(timeStr: string) {
+    this._data = [timeStr];
   }
 
   public getMessageArray() {
@@ -15,3 +15,4 @@ export class GetSecondsUntilMessageComposer implements IMessageComposer<Construc
     return;
   }
 }
+

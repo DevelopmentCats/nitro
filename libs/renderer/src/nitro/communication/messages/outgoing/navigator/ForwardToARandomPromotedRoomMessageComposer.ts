@@ -5,8 +5,8 @@ export class ForwardToARandomPromotedRoomMessageComposer
 {
   private _data: ConstructorParameters<typeof ForwardToARandomPromotedRoomMessageComposer>;
 
-  constructor(k: string) {
-    this._data = [k];
+  constructor(flatId: string) {
+    this._data = [flatId];
   }
 
   public getMessageArray() {
@@ -17,3 +17,4 @@ export class ForwardToARandomPromotedRoomMessageComposer
     return;
   }
 }
+

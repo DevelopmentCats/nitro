@@ -2,7 +2,7 @@ import {IMessageDataWrapper, IMessageParser} from "../../../../../api";
 import {GuestRoomSearchResultData} from "./utils";
 
 export class GuestRoomSearchResultMessageParser implements IMessageParser {
-  _data: GuestRoomSearchResultData;
+  private _data: GuestRoomSearchResultData;
 
   public flush(): boolean {
     return true;
@@ -20,3 +20,4 @@ export class GuestRoomSearchResultMessageParser implements IMessageParser {
     return this._data;
   }
 }
+

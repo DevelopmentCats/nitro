@@ -3,8 +3,8 @@ import {IMessageComposer} from "../../../../../api";
 export class EditEventMessageComposer implements IMessageComposer<ConstructorParameters<typeof EditEventMessageComposer>> {
   private _data: ConstructorParameters<typeof EditEventMessageComposer>;
 
-  constructor(k: number, _arg_2: string, _arg_3: string) {
-    this._data = [k, _arg_2, _arg_3];
+  constructor(adId: number, eventName: string, eventDesc: string) {
+    this._data = [adId, eventName, eventDesc];
   }
 
   public getMessageArray() {
@@ -15,3 +15,4 @@ export class EditEventMessageComposer implements IMessageComposer<ConstructorPar
     return;
   }
 }
+

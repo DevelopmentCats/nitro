@@ -74,7 +74,7 @@ export class ExtendedForumData extends ForumData {
     return this._canChangeSettings;
   }
 
-  public get isStaf(): boolean {
+  public get isStaFf(): boolean {
     return this._isStaff;
   }
 

@@ -3,8 +3,8 @@ import {IMessageComposer} from "../../../../../api";
 export class GetMarketplaceItemStatsComposer implements IMessageComposer<ConstructorParameters<typeof GetMarketplaceItemStatsComposer>> {
   private _data: ConstructorParameters<typeof GetMarketplaceItemStatsComposer>;
 
-  constructor(unknown: number, itemId: number) {
-    this._data = [unknown, itemId];
+  constructor(itemType: number, itemId: number) {
+    this._data = [itemType, itemId];
   }
 
   public getMessageArray() {
@@ -15,3 +15,4 @@ export class GetMarketplaceItemStatsComposer implements IMessageComposer<Constru
     this._data = null;
   }
 }
+

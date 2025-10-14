@@ -8,8 +8,8 @@ export class SubmitRoomToCompetitionMessageComposer implements IMessageComposer<
 
   private _data: ConstructorParameters<typeof SubmitRoomToCompetitionMessageComposer>;
 
-  constructor(k: string, _arg_2: number) {
-    this._data = [k, _arg_2];
+  constructor(goalCode: string, confirmLevel: number) {
+    this._data = [goalCode, confirmLevel];
   }
 
   public getMessageArray() {
@@ -20,3 +20,4 @@ export class SubmitRoomToCompetitionMessageComposer implements IMessageComposer<
     return;
   }
 }
+

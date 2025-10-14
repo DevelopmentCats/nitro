@@ -3,8 +3,8 @@ import {IMessageComposer} from "../../../../../api";
 export class GetThreadMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetThreadMessageComposer>> {
   private _data: ConstructorParameters<typeof GetThreadMessageComposer>;
 
-  constructor(k: number, _arg_2: number) {
-    this._data = [k, _arg_2];
+  constructor(mode: number, forumState: number) {
+    this._data = [mode, forumState];
   }
 
   public getMessageArray() {
@@ -15,3 +15,4 @@ export class GetThreadMessageComposer implements IMessageComposer<ConstructorPar
     return;
   }
 }
+

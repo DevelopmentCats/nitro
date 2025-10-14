@@ -4,11 +4,11 @@ export class BadgeAndPointLimit {
   private _badgeId: string;
   private _limit: number;
 
-  constructor(k: string, _arg_2: IMessageDataWrapper) {
-    if (!_arg_2) throw new Error("invalid_parser");
+  constructor(badgeId: string, limit: IMessageDataWrapper) {
+    if (!limit) throw new Error("invalid_parser");
 
-    this._badgeId = "ACH_" + k + _arg_2.readInt();
-    this._limit = _arg_2.readInt();
+    this._badgeId = "ACH_" + badgeId + limit.readInt();
+    this._limit = limit.readInt();
   }
 
   public get badgeId(): string {
@@ -19,3 +19,4 @@ export class BadgeAndPointLimit {
     return this._limit;
   }
 }
+

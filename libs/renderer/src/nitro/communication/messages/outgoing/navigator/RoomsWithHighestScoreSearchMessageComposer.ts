@@ -3,8 +3,8 @@ import {IMessageComposer} from "../../../../../api";
 export class RoomsWithHighestScoreSearchMessageComposer implements IMessageComposer<ConstructorParameters<typeof RoomsWithHighestScoreSearchMessageComposer>> {
   private _data: ConstructorParameters<typeof RoomsWithHighestScoreSearchMessageComposer>;
 
-  constructor(k: number) {
-    this._data = [k];
+  constructor(adIndex: number) {
+    this._data = [adIndex];
   }
 
   public getMessageArray() {
@@ -15,3 +15,4 @@ export class RoomsWithHighestScoreSearchMessageComposer implements IMessageCompo
     return;
   }
 }
+

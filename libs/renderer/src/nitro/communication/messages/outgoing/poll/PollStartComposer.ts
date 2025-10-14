@@ -3,8 +3,8 @@ import {IMessageComposer} from "../../../../../api";
 export class PollStartComposer implements IMessageComposer<ConstructorParameters<typeof PollStartComposer>> {
   private _data: ConstructorParameters<typeof PollStartComposer>;
 
-  constructor(k: number) {
-    this._data = [k];
+  constructor(pollId: number) {
+    this._data = [pollId];
   }
 
   public getMessageArray() {
@@ -15,3 +15,4 @@ export class PollStartComposer implements IMessageComposer<ConstructorParameters
     return;
   }
 }
+

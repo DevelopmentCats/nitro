@@ -3,8 +3,8 @@ import {IMessageComposer} from "../../../../../api";
 export class GetIsUserPartOfCompetitionMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetIsUserPartOfCompetitionMessageComposer>> {
   private _data: ConstructorParameters<typeof GetIsUserPartOfCompetitionMessageComposer>;
 
-  constructor(k: string) {
-    this._data = [k];
+  constructor(goalCode: string) {
+    this._data = [goalCode];
   }
 
   public getMessageArray() {
@@ -15,3 +15,4 @@ export class GetIsUserPartOfCompetitionMessageComposer implements IMessageCompos
     return;
   }
 }
+

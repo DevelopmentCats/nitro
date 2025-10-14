@@ -3,8 +3,8 @@ import {IMessageComposer} from "../../../../../api";
 export class RoomAdSearchMessageComposer implements IMessageComposer<ConstructorParameters<typeof RoomAdSearchMessageComposer>> {
   private _data: ConstructorParameters<typeof RoomAdSearchMessageComposer>;
 
-  constructor(k: number, _arg_2: number) {
-    this._data = [k, _arg_2];
+  constructor(adIndex: number, searchState: number) {
+    this._data = [adIndex, searchState];
   }
 
   public getMessageArray() {
@@ -15,3 +15,4 @@ export class RoomAdSearchMessageComposer implements IMessageComposer<Constructor
     return;
   }
 }
+

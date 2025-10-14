@@ -5,14 +5,14 @@ export class CompetitionRoomsData {
   private _pageIndex: number;
   private _pageCount: number;
 
-  constructor(k: IMessageDataWrapper, _arg_2: number = 0, _arg_3: number = 0) {
-    this._goalId = _arg_2;
-    this._pageIndex = _arg_3;
+  constructor(wrapper: IMessageDataWrapper, goalId: number = 0, pageIndex: number = 0) {
+    this._goalId = goalId;
+    this._pageIndex = pageIndex;
 
-    if (k) {
-      this._goalId = k.readInt();
-      this._pageIndex = k.readInt();
-      this._pageCount = k.readInt();
+    if (wrapper) {
+      this._goalId = wrapper.readInt();
+      this._pageIndex = wrapper.readInt();
+      this._pageCount = wrapper.readInt();
     }
   }
 
@@ -28,3 +28,4 @@ export class CompetitionRoomsData {
     return this._pageCount;
   }
 }
+

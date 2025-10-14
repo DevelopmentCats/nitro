@@ -3,8 +3,8 @@ import {IMessageComposer} from "../../../../../api";
 export class VoteForRoomMessageComposer implements IMessageComposer<ConstructorParameters<typeof VoteForRoomMessageComposer>> {
   private _data: ConstructorParameters<typeof VoteForRoomMessageComposer>;
 
-  constructor(k: string) {
-    this._data = [k];
+  constructor(goalCode: string) {
+    this._data = [goalCode];
   }
 
   public getMessageArray() {
@@ -15,3 +15,4 @@ export class VoteForRoomMessageComposer implements IMessageComposer<ConstructorP
     return;
   }
 }
+
