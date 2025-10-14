@@ -66,9 +66,13 @@ export class RoomCameraWidgetManager implements IRoomCameraWidgetManager {
         filter.matrix = effect.colorMatrix;
         filter.alpha = selectedEffect.alpha;
 
-        if (!sprite.filters) sprite.filters = [];
-
-        sprite.filters.push(filter);
+        if (sprite.filters === undefined || sprite.filters === null) {
+          sprite.filters = [filter];
+        } else if (Array.isArray(sprite.filters)) {
+          sprite.filters = [...sprite.filters, filter];
+        } else {
+          sprite.filters = [sprite.filters, filter];
+        }
       } else {
         const effectSprite = new NitroSprite(effect.texture);
         effectSprite.alpha = selectedEffect.alpha;
@@ -93,3 +97,4 @@ export class RoomCameraWidgetManager implements IRoomCameraWidgetManager {
     return this._isLoaded;
   }
 }
+
