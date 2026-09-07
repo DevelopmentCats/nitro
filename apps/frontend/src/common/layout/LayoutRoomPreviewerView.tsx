@@ -11,6 +11,7 @@ export const LayoutRoomPreviewerView: FC<LayoutRoomPreviewerViewProps> = props =
   const {roomPreviewer = null, height = 0, children = null} = props;
   const [renderingCanvas, setRenderingCanvas] = useState<IRoomRenderingCanvas>(null);
   const elementRef = useRef<HTMLDivElement>();
+  const canvasRef = useRef<HTMLCanvasElement>();
 
   const onClick = (event: MouseEvent<HTMLDivElement>) => {
     if (!roomPreviewer) return;
@@ -23,13 +24,28 @@ export const LayoutRoomPreviewerView: FC<LayoutRoomPreviewerViewProps> = props =
     if (!roomPreviewer) return;
 
     const update = (time: number) => {
-      if (!roomPreviewer || !renderingCanvas || !elementRef.current) return;
+      if (!roomPreviewer || !renderingCanvas || !canvasRef.current) return;
 
       roomPreviewer.updatePreviewRoomView();
 
       if (!renderingCanvas.canvasUpdated) return;
 
-      elementRef.current.style.backgroundImage = `url(${TextureUtils.generateImageUrl(renderingCanvas.master)})`;
+      const extracted = TextureUtils.generateCanvas(renderingCanvas.master);
+
+      if (!extracted) return;
+
+      const canvas = canvasRef.current;
+      const context = canvas.getContext("2d");
+
+      if (!context) return;
+
+      if (canvas.width !== extracted.width || canvas.height !== extracted.height) {
+        canvas.width = extracted.width;
+        canvas.height = extracted.height;
+      }
+
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      context.drawImage(extracted, 0, 0);
     };
 
     if (!renderingCanvas) {
@@ -80,7 +96,9 @@ export const LayoutRoomPreviewerView: FC<LayoutRoomPreviewerViewProps> = props =
 
   return (
     <div className="room-preview-container">
-      <div ref={elementRef} className="room-preview-image" style={{height}} onClick={onClick} />
+      <div ref={elementRef} className="room-preview-image" style={{height}} onClick={onClick}>
+        <canvas ref={canvasRef} style={{width: "100%", height: "100%", display: "block"}} />
+      </div>
       {children}
     </div>
   );
